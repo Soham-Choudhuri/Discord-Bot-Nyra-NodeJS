@@ -1,0 +1,52 @@
+Project Structure
+Discord-Bot-Nyra-NodeJS
+│
+├── _details
+│   ├── Autoplay.txt
+│   ├── Project Development Plan.txt
+│   ├── Project Structure.txt
+│   └── Updates.txt
+│
+├── data
+│   ├── nyra.db
+│   ├── nyra.db-shm
+│   └── nyra.db-wal
+│
+├── src
+│   ├── commands
+│   │   ├── autoplay.js (Updated)
+│   │   ├── leave.js (Updated)
+│   │   ├── queue.js (Updated)
+│   │   ├── settings.js (Updated)
+│   │   ├── skip.js (Updated)
+│   │   ├── stop.js (Updated)
+│   │   ├── stopafter.js (Updated)
+│   │   └── stream.js (Updated)
+│   ├── database
+│   │   └── schema.js
+│   ├── events
+│   │   ├── interactionCreate.js
+│   │   ├── ready.js (Updated)
+│   │   └── voiceStateUpdate.js (Updated)
+│   ├── handlers
+│   │   ├── commandHandler.js
+│   │   └── eventHandler.js
+│   ├── lavalink
+│   │   ├── lavalinkEvents.js (Updated)
+│   │   └── playerEvents.js (Updated)
+│   ├── services
+│   │   ├── AutoplayManager.js
+│   │   ├── configManager.js
+│   │   └── ytmusic.js
+│   ├── tests
+│   │   ├── test.js
+│   │   └── test_path.js
+│   ├── utils
+│   │   └── deleteTimer.js
+│   └── index.js (Updated)
+│
+├── .env
+├── npm run dev.command
+├── package-lock.json
+├── package.json
+└── start.bat

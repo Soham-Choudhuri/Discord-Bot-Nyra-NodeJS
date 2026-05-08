@@ -1,0 +1,48 @@
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('autoplay')
+        .setDescription('Toggle autoplay mode — automatically plays recommended tracks')
+        .addStringOption(option =>
+            option.setName('mode')
+                .setDescription('The recommendation algorithm to use (Default: Static)')
+                .addChoices(
+                    { name: 'Static (Consistent Vibe)', value: 'static' },
+                    { name: 'Dynamic (Evolving Vibe)', value: 'dynamic' }
+                )
+        ),
+    async execute(interaction, client) {
+        // Fetch the player instead of the old custom queue
+        const player = client.lavalink.getPlayer(interaction.guildId);
+
+        if (!player || (!player.playing && player.queue.tracks.length === 0)) {
+            return interaction.reply({
+                content: '❌ Nothing is currently playing. Start a track first with `/stream`.',
+                flags: [MessageFlags.Ephemeral],
+            });
+        }
+
+        // Toggle autoplay state using the native metadata store
+        const isAutoplay = player.get('autoplay') || false;
+        player.set('autoplay', !isAutoplay);
+
+        if (player.get('autoplay')) {
+            const mode = interaction.options.getString('mode') || 'static';
+            const { extractVideoId } = require('../lavalink/playerEvents');
+
+            // Extract the video ID from the current track
+            const currentVideoId = extractVideoId(player.queue.current?.info?.uri);
+
+            const AutoplayManager = require('../services/AutoplayManager');
+            // Attach the manager directly to the player
+            player.set('autoplayManager', new AutoplayManager(interaction.guildId, mode, currentVideoId));
+
+            await interaction.reply(`♾️ **Autoplay: ON** (${mode === 'static' ? 'Static Mode' : 'Dynamic Mode'})\nRecommended tracks will play when the queue ends.`);
+        } else {
+            // Clean up the manager when disabled
+            player.set('autoplayManager', null);
+            await interaction.reply('⏸️ **Autoplay: OFF**\nPlayback will stop when the queue ends.');
+        }
+    },
+};
