@@ -1,8 +1,10 @@
-# Dynamic Configuration & Database Updates Walkthrough
+# Updates Walkthrough for Nyra Brooks (Personalized Discord Music Bot)
 
-I have implemented a complete persistent configuration system for Nyra. Server administrators can now customize the bot's behavior in real-time using a visual dashboard.
+Nyra Brooks is a personalized Discord music bot built with TypeScript, focused on high performance and user experience. She utilizes a custom NodeLink integration for low-latency audio playback and a sophisticated Just-In-Time (JIT) algorithm to deliver personalized music recommendations.
 
 ## Update 1: The Configuration Update
+
+I have implemented a complete persistent configuration system for Nyra. Server administrators can now customize the bot's behavior in real-time using a visual dashboard.
 
 ### 1. High-Performance Database Foundation
 - **SQLite Engine**: Integrated `better-sqlite3` for synchronous, low-latency configuration storage.
@@ -22,10 +24,11 @@ I have implemented a complete persistent configuration system for Nyra. Server a
 - **Custom Autoplay Seeds**: You can now set a permanent YouTube Video ID or URL to act as the primary seed for the autoplay algorithm in your server.
 
 ## Update 2: Real-Time Persistence & Cleanliness
-- **Persistent "Now Playing" System**:
-    - Nyra now edits the **same message** for every new track, keeping your chat clean.
-    - If the message is deleted, the bot automatically sends a new one and updates the database.
-    - **Bonus**: When the queue ends, the message is edited to `🏁 Queue finished! I'm still in the voice channel.`
+
+### 1. Persistent "Now Playing" System
+- Nyra now edits the **same message** for every new track, keeping your chat clean.
+- If the message is deleted, the bot automatically sends a new one and updates the database.
+- **Bonus**: When the queue ends, the message is edited to `🏁 Queue finished! I'm still in the voice channel.`
 - **New Playback Controls**:
     - **`/stop`**: Stops playback immediately and clears the queue, but the bot **stays** in the voice channel.
     - **`/leave`**: Performs a full stop, clears the queue, and **disconnects** the bot.
